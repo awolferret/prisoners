@@ -39,16 +39,16 @@ namespace ConsoleApp1
                 switch (input)
                 {
                     case "1":
-                        NameSearch();
+                        SearchName();
                         break;
                     case "2":
-                        HeightSearch();
+                        SearchHeight();
                         break;
                     case "3":
-                        WeightSearch();
+                        SearchWeight();
                         break;
                     case "4":
-                        NationalitySearch();
+                        SearchNationality();
                         break;
                     case "5":
                         isWorking = false;
@@ -60,19 +60,15 @@ namespace ConsoleApp1
             }
         }
 
-        private void NameSearch()
+        private void SearchName()
         {
             Console.WriteLine("Введите имя");
             string input = Console.ReadLine();
             var nameFilred = from Criminal criminal in _filtredCriminals where criminal.Name == (input) select criminal;
-
-            foreach (var criminal in nameFilred)
-            {
-                Console.WriteLine(criminal.Name + " " + criminal.Height + " " + criminal.Weight + " " + criminal.Nationality);
-            }
+            ShowInfo(nameFilred);
         }
 
-        private void HeightSearch()
+        private void SearchHeight()
         {
             Console.WriteLine("Введите рост");
             string input = Console.ReadLine();
@@ -81,15 +77,11 @@ namespace ConsoleApp1
             if (int.TryParse(input, out number))
             {
                 var heightFilred = from Criminal criminal in _filtredCriminals where criminal.Height == (number) select criminal;
-
-                foreach (var criminal in heightFilred)
-                {
-                    Console.WriteLine(criminal.Name + " " + criminal.Height + " " + criminal.Weight + " " + criminal.Nationality);
-                }
+                ShowInfo(heightFilred);
             }
         }
 
-        private void WeightSearch()
+        private void SearchWeight()
         {
             Console.WriteLine("Введите вес");
             string input = Console.ReadLine();
@@ -98,21 +90,21 @@ namespace ConsoleApp1
             if (int.TryParse(input, out number))
             {
                 var weightFilred = from Criminal criminal in _filtredCriminals where criminal.Weight == (number) select criminal;
-
-                foreach (var criminal in weightFilred)
-                {
-                    Console.WriteLine(criminal.Name + " " + criminal.Height + " " + criminal.Weight + " " + criminal.Nationality);
-                }
+                ShowInfo(weightFilred);
             }
         }
 
-        private void NationalitySearch()
+        private void SearchNationality()
         {
             Console.WriteLine("Введите национальность");
             string input = Console.ReadLine();
             var nationalityFilred = from Criminal criminal in _filtredCriminals where criminal.Nationality == (input) select criminal;
+            ShowInfo(nationalityFilred);
+        }
 
-            foreach (var criminal in nationalityFilred)
+        private void ShowInfo(IEnumerable<Criminal> list)
+        {
+            foreach (var criminal in list)
             {
                 Console.WriteLine(criminal.Name + " " + criminal.Height + " " + criminal.Weight + " " + criminal.Nationality);
             }
